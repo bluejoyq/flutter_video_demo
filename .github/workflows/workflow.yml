@@ -24,8 +24,8 @@ jobs:
       - name: Upload APK
         uses: adityak74/google-drive-upload-git-action@main
         with:
-          credentials: ${{ secrets.credentials }}
+          credentials: ${{ secrets.CREDENTIALS }}
           filename: "video-demo.apk"
-          folderId: ${{ secrets.folderId }}
+          folderId: ${{ secrets.FOLDERID }}
           name: "video-demo.apk" # optional string
           overwrite: "true" # optional boolean
