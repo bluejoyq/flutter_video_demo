@@ -10,7 +10,27 @@ jobs:
 
     steps:
       - uses: actions/checkout@v2
-      - uses: subosito/flutter-action@v1
-      - uses: bluefireteam/flutter-gh-pages@v7
+      - name: Set up Flutter
+        uses: subosito/flutter-action@v1.4.0
         with:
-          baseHref: /bluejoyq/flutter_video_demo/
+          channel: 'stable'
+      - name: Install dependencies
+        run: flutter pub get
+      - name: Build APK
+        run: flutter build apk --release
+
+      - name: Rename APK
+        run: mv build/app/outputs/flutter-apk/app-release.apk ./video-demo.apk
+      - name: Archive APK
+        uses: actions/upload-artifact@v1
+        with:
+          name: android-build
+          path: ./video-demo.apk
+      - name: Upload APK
+        uses: adityak74/google-drive-upload-git-action@main
+        with:
+          credentials: ${{ secrets.credentials }}
+          filename: "archive.zip"
+          folderId: ${{ secrets.folderId }}
+          name: "documentation.zip" # optional string
+          overwrite: "true" # optional boolean
