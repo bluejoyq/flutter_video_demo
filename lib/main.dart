@@ -33,13 +33,8 @@ class _VideoPlayerScreenState extends State<VideoPlayerScreen> {
   String src =
       'https://flutter.github.io/assets-for-api-docs/assets/videos/butterfly.mp4';
   List<String> logs = [];
-  @override
-  void initState() {
-    super.initState();
 
-    // Create and store the VideoPlayerController. The VideoPlayerController
-    // offers several different constructors to play videos from assets, files,
-    // or the internet.
+  void updateVideoState() {
     _videoController = VideoPlayerController.network(
       src,
     );
@@ -52,11 +47,16 @@ class _VideoPlayerScreenState extends State<VideoPlayerScreen> {
 
   void updateState() {
     _videoController.dispose();
-    _videoController = VideoPlayerController.network(
-      src,
-    );
-    _initializeVideoPlayerFuture = _videoController.initialize();
-    _videoController.setLooping(true);
+    // Create and store the VideoPlayerController. The VideoPlayerController
+    // offers several different constructors to play videos from assets, files,
+    // or the internet.
+    updateVideoState();
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    updateVideoState();
   }
 
   @override
@@ -124,8 +124,10 @@ class _VideoPlayerScreenState extends State<VideoPlayerScreen> {
                       String duration = value.duration.toString();
                       String currentPos = value.position.toString();
                       String isBuffering = value.isBuffering.toString();
+                      // video size_bug
+                      String videoSize = value.size.toString();
                       return Text(
-                          '재생 중: $isPlaying, 버퍼링중: $isBuffering, 총 재생시간: $duration,현재 재생 시간: $currentPos');
+                          '재생 중: $isPlaying, 버퍼링중: $isBuffering, 총 재생시간: $duration,현재 재생 시간: $currentPos, 현재 사이즈: $videoSize');
                     },
                   )
                 ],
