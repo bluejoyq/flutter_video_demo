@@ -33,10 +33,9 @@ class _VideoPlayerScreenState extends State<VideoPlayerScreen> {
   String src =
       'https://flutter.github.io/assets-for-api-docs/assets/videos/butterfly.mp4';
   List<String> logs = [];
-  @override
-  void initState() {
-    super.initState();
 
+  void updateState() {
+    _videoController.dispose();
     // Create and store the VideoPlayerController. The VideoPlayerController
     // offers several different constructors to play videos from assets, files,
     // or the internet.
@@ -50,13 +49,10 @@ class _VideoPlayerScreenState extends State<VideoPlayerScreen> {
     _videoController.setLooping(true);
   }
 
-  void updateState() {
-    _videoController.dispose();
-    _videoController = VideoPlayerController.network(
-      src,
-    );
-    _initializeVideoPlayerFuture = _videoController.initialize();
-    _videoController.setLooping(true);
+  @override
+  void initState() {
+    super.initState();
+    updateState();
   }
 
   @override
