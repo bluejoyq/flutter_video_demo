@@ -124,8 +124,9 @@ class _VideoPlayerScreenState extends State<VideoPlayerScreen> {
                       String duration = value.duration.toString();
                       String currentPos = value.position.toString();
                       String isBuffering = value.isBuffering.toString();
+                      String videoSize = value.size.toString();
                       return Text(
-                          '재생 중: $isPlaying, 버퍼링중: $isBuffering, 총 재생시간: $duration,현재 재생 시간: $currentPos');
+                          '재생 중: $isPlaying, 버퍼링중: $isBuffering, 총 재생시간: $duration,현재 재생 시간: $currentPos, 현재 사이즈: $videoSize');
                     },
                   )
                 ],
